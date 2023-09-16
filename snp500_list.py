@@ -31,6 +31,6 @@ file_path = "sp500_companies.csv"
 with open(file_path, 'w') as file:
     # Write each company name to the file with a newline character
     for company, security in zip(sp500_symbols, sp500_comps):
-        file.write(f"{company}, {security}\n")
+        file.write(f"{company},{security}\n")
 
 print("----------------------- S&P 500 Company List Fetched!  -----------------------")
