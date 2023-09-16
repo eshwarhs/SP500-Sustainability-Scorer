@@ -70,7 +70,6 @@ try:
         for row in tqdm(csv_reader, desc="Processing"):
             if len(row) >= 2:
                 company = Company(row[0], row[1])
-                print(company.ticker)
                 esg_score = esg_scraper.get_esg_score(company.ticker)
                 cdp_score = cdp_scraper.get_cdp_score(company.ticker)
                 company.esg_score = esg_score[0]

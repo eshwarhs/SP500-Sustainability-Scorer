@@ -2,3 +2,5 @@ pandas
 selenium
 webdriver-manager
 tqdm
+taipy
+parsel
