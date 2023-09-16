@@ -1,5 +1,6 @@
 import csv
 from esg_score import ESGScoreScraper
+from tqdm import tqdm
 
 
 class Company:
@@ -45,7 +46,7 @@ try:
         csv_reader = csv.reader(file)
         next(csv_reader)  # Skip the header row if it exists
 
-        for row in csv_reader:
+        for row in tqdm(csv_reader, desc="Processing"):
             if len(row) >= 2:
                 company = Company(row[0], row[1])
                 # print(ticker)
@@ -55,10 +56,10 @@ try:
                 company.social_score = esg_score[2]
                 company.governance_score = esg_score[3]
                 company.write_company_to_csv()
-                if company.esg_score:
-                    print(f"Ticker: {company.ticker}, Name: {company.name}, ESG Score: {company.esg_score}")
-                else:
-                    print(f"Failed to retrieve ESG score for Ticker: {company.ticker}, Name: {company.name}")
+                # if company.esg_score:
+                #     print(f" Ticker: {company.ticker}, Name: {company.name}, ESG Score: {company.esg_score}")
+                # else:
+                #     print(f"Failed to retrieve ESG score for Ticker: {company.ticker}, Name: {company.name}")
                 
 
 
