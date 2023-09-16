@@ -1,16 +1,18 @@
 import csv
 from esg_score import ESGScoreScraper
 from tqdm import tqdm
+import os
 
 
 class Company:
     def __init__(self, ticker, name):
         self.ticker = ticker
-        self.name = name    
+        self.name = name
         self.esg_score = None
         self.env_score = None
         self.social_score = None
         self.governance_score = None
+        self.controversy_level = None
 
     def write_company_to_csv(self):
         with open('scores.csv', 'a', newline='') as csvfile:
@@ -32,7 +34,19 @@ class Company:
                 t.append(self.governance_score)
             else:
                 t.append('NaN')
+            if self.controversy_level:
+                t.append(self.controversy_level)
+            else:
+                t.append('NaN')
             spamwriter.writerow([self.ticker, self.name]+t)
+
+
+file_path = "scores.csv"
+
+if os.path.exists(file_path):
+    os.remove(file_path)
+
+print("----------------------- Generating Sustainability Score for S&P 500  -----------------------")
 
 # Define the CSV file path
 csv_file_path = 'sp500_companies.csv'
@@ -55,14 +69,11 @@ try:
                 company.env_score = esg_score[1]
                 company.social_score = esg_score[2]
                 company.governance_score = esg_score[3]
+                company.controversy_level = esg_score[4]
                 company.write_company_to_csv()
-                # if company.esg_score:
-                #     print(f" Ticker: {company.ticker}, Name: {company.name}, ESG Score: {company.esg_score}")
-                # else:
-                #     print(f"Failed to retrieve ESG score for Ticker: {company.ticker}, Name: {company.name}")
-                
-
 
 finally:
     # Close the ESGScoreScraper
     esg_scraper.close()
+
+print("----------------------- Done Generating Sustainability Score for S&P 500!  -----------------------")
