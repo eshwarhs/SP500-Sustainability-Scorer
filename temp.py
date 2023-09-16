@@ -1,3 +1,3 @@
 from esg_score import ESGScoreScraper
 
-ESGScoreScraper().get_esg_score('AAPL')
+print(ESGScoreScraper().get_esg_score('AAPL'))

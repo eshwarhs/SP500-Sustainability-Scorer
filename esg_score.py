@@ -36,8 +36,13 @@
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service as ChromeService
 from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
+from selenium.common import TimeoutException
 import sys
+import csv
 
 
 class ESGScoreScraper:
@@ -55,9 +60,9 @@ class ESGScoreScraper:
             # Visit the target page
             self.driver.get(url)
 
-            # esg = self.driver.find_element(
-            #     By.CSS_SELECTOR, 'div[class="Fz(36px) Fw(600) D(ib) Mend(5px)"]')
-            # res[0] = esg.text
+            esg = self.driver.find_element(
+                By.CSS_SELECTOR, 'div[class="Fz(36px) Fw(600) D(ib) Mend(5px)"]')
+            res[0] = esg.text
 
             # env_score = self.driver.find_element(
             #     By.CSS_SELECTOR, 'div[class="D(ib) Fz(23px) smartphone_Fz(22px) Fw(600)"]')
@@ -66,13 +71,18 @@ class ESGScoreScraper:
             # social_score = self.driver.find_element(
             #     By.CSS_SELECTOR, 'div[class="D(ib) Fz(23px) smartphone_Fz(22px) Fw(600)"]')
             
-            ele = self.driver.find_element(By.CLASS_NAME, 'Va(t) D(ib) W(22%) smartphone_W(33%) Wow(bw) Bxz(bb) Px(5px)')
-            print(ele)
+            env_score = self.driver.find_element(By.XPATH, '//div[@class="Va(t) D(ib) W(22%) smartphone_W(33%) Wow(bw) Bxz(bb) Px(5px)"][1]')
+            res[1] = env_score.text.split('\n')[1]
 
+            social_score = self.driver.find_element(By.XPATH, '//div[@class="Va(t) D(ib) W(22%) smartphone_W(33%) Wow(bw) Bxz(bb) Px(5px)"][2]')
+            res[2] = social_score.text.split('\n')[1]
+
+            gov_score = self.driver.find_element(By.XPATH, '//div[@class="Va(t) D(ib) W(22%) smartphone_W(33%) Wow(bw) Bxz(bb) Px(5px)"][3]')
+            res[3] = gov_score.text.split('\n')[1]
             return res
         except Exception as e:
-            print(f"Error when fetching ESG data for {ticker}", e)
-            return None
+            print(f"Error when fetching ESG data for {ticker}")
+            return res
 
     def close(self):
         # Close the browser and free up the resources

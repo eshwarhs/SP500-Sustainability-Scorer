@@ -8,11 +8,30 @@ class Company:
         self.name = name    
         self.esg_score = None
         self.env_score = None
+        self.social_score = None
+        self.governance_score = None
 
     def write_company_to_csv(self):
         with open('scores.csv', 'a', newline='') as csvfile:
             spamwriter = csv.writer(csvfile, delimiter=',')
-            spamwriter.writerow([self.ticker, self.name, self.esg_score, self.env_score])
+            t = []
+            if self.esg_score:
+                t.append(self.esg_score)
+            else:
+                t.append('NaN')
+            if self.env_score:
+                t.append(self.env_score)
+            else:
+                t.append('NaN')
+            if self.social_score:
+                t.append(self.social_score)
+            else:
+                t.append('NaN')
+            if self.governance_score:
+                t.append(self.governance_score)
+            else:
+                t.append('NaN')
+            spamwriter.writerow([self.ticker, self.name]+t)
 
 # Define the CSV file path
 csv_file_path = 'sp500_companies.csv'
@@ -33,6 +52,8 @@ try:
                 esg_score = esg_scraper.get_esg_score(company.ticker)
                 company.esg_score = esg_score[0]
                 company.env_score = esg_score[1]
+                company.social_score = esg_score[2]
+                company.governance_score = esg_score[3]
                 company.write_company_to_csv()
                 if company.esg_score:
                     print(f"Ticker: {company.ticker}, Name: {company.name}, ESG Score: {company.esg_score}")
