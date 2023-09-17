@@ -42,8 +42,17 @@ The dataset has the following columns:
   ```
   python sustainability_scorer.py
   ```
+* To start the react webpage, run the following commands
+  ```
+  cd snp-dashboard
+  nmp i
+  nmp run
+  ```
+  Access the webpage on your localhost.
 
-## Emphasis
+## Built with
+* [![React][React.js]][https://reactjs.org/]
+* [![Selenium][selenium.dev]][[Selenium](https://www.selenium.dev/)]
 
 *This text will be italic*  
 _This will also be italic_
