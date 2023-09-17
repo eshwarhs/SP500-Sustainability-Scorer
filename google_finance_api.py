@@ -87,5 +87,5 @@ class CDPScoreScraper:
             return ticker_data
         return None
     
-p = CDPScoreScraper()
-print(p.get_cdp_score("GOOG"))
+# p = CDPScoreScraper()
+# print(len(p.get_cdp_score("AOS").get("cdp")) > 0)

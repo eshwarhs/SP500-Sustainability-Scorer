@@ -121,8 +121,9 @@ class Company:
 
     def calculate_score(self):
         esg = int(self.esg_score) if self.esg_score else 0
-        ctl = int(self.controversy_level) if self.controversy_level else 0 
-        cdp = self.climate_score if self.climate_score else '-'
+        ctl = int(self.controversy_level) if self.controversy_level else 0
+        # print(self.climate_score)
+        cdp = self.climate_score[0] if len(self.climate_score) > 0 else '-'
         cdp = encoding_mapping[cdp]
 
         n_esg = (esg - 0)/(100 - 0)
@@ -139,7 +140,9 @@ if os.path.exists(file_path):
 
 with open(file_path, mode='w', newline='') as file:
     writer = csv.writer(file)
-    writer.writerow(["Ticker","Company","ESG Risk score","Environment Risk Score","Social Risk Score","Governance Risk Score","Controversy Level","CDP Score", "Sustainability Score"])
+    writer.writerow(["Ticker","Company","ESG Risk score","Environment Risk Score","Social Risk Score","Governance Risk Score","Controversy Level","CDP Score", "Sustainability Score", "title",
+            "quote", "current_price", "day_range", "year_range", "market_cap", "website", "revenue", "net_income",
+            "news1", "news2"])
 
 print("----------------------- Generating Sustainability Score for S&P 500  -----------------------")
 
@@ -161,23 +164,26 @@ try:
                 company = Company(row[0], row[1])
                 esg_score = esg_scraper.get_esg_score(company.ticker)
                 aboutCompany = cdp_scraper.get_cdp_score(company.ticker)
-                company.climate_score = aboutCompany.cdp
-                company.title = aboutCompany.title
-                company.quote = aboutCompany.quote
-                company.current_price = aboutCompany.current_price
-                company.day_range = aboutCompany.day_range
-                company.year_range = aboutCompany.year_range
-                company.market_cap = aboutCompany.market_cap
-                company.revenue = aboutCompany.revenue
-                company.website = aboutCompany.website
-                company.net_income = aboutCompany.net_income
-                company.news1 = aboutCompany.news1
-                company.news2 = aboutCompany.news2
+                # print(aboutCompany)
+                company.climate_score = aboutCompany.get("cdp")
                 company.esg_score = esg_score[0]
                 company.env_score = esg_score[1]
                 company.social_score = esg_score[2]
                 company.governance_score = esg_score[3]
                 company.controversy_level = esg_score[4]
+                company.title = aboutCompany.get("title")
+                # print(company.title)
+                company.quote = aboutCompany.get("quote")
+                company.current_price = aboutCompany.get("current_price")
+                company.day_range = aboutCompany.get("day_range")
+                company.year_range = aboutCompany.get("year_range")
+                company.market_cap = aboutCompany.get("market_cap")
+                company.revenue = aboutCompany.get("revenue")
+                company.website = aboutCompany.get("website")
+                company.net_income = aboutCompany.get("net_income")
+                if(aboutCompany.get("news").get("items") >= 2):
+                    company.news1 = aboutCompany.get("news").get("items")[0].get("link")
+                    company.news2 = aboutCompany.get("news").get("items")[1].get("link")
                 company.calculate_score()
                 company.write_company_to_csv()
 
