@@ -122,7 +122,7 @@ class Company:
     def calculate_score(self):
         esg = int(self.esg_score) if self.esg_score else 0
         ctl = int(self.controversy_level) if self.controversy_level else 0
-        cdp = self.climate_score[0] if len(self.climate_score) > 0 else '-'
+        cdp = self.climate_score[0] if self.climate_score and self.climate_score[0] else '-'
         cdp = encoding_mapping[cdp]
 
         n_esg = (esg - 0)/(100 - 0)
