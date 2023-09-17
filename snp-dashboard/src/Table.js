@@ -11,14 +11,13 @@ import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import TableSortLabel from "@mui/material/TableSortLabel";
-import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import { visuallyHidden } from "@mui/utils";
 import { Link } from "@mui/material";
-import { Container, List, ListItem } from "@mui/material";
+import { List, ListItem } from "@mui/material";
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -172,10 +171,10 @@ function Row(props) {
       </TableRow>
       <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={9}>
-          <Collapse in={open} timeout="auto" unmountOnExit>
+          <Collapse in={open} timeout="auto" unmountOnExit sx={{ padding: "3%"}}>
             {/* revenue,net_income,news1,news2 */}
             <Typography variant="h6" gutterBottom component="div">
-              More Information
+              <b>More Information</b>
             </Typography>
             <Table size="small" aria-label="purchases">
               <TableRow>
@@ -191,12 +190,6 @@ function Row(props) {
                 </TableCell>
                 <TableCell>
                   <Typography variant="p"><b>Latest News</b></Typography>
-                  {/* {row['news1'] == '-' && row['news2'] == '-' ? (<List><ListItem>No latest News</ListItem></List>) : (row['news1'] != '-' && row['news2'] != '-') ?
-                    (<List >
-                      <ListItem><a href={row["news1"]}>{row["news1"]}</a></ListItem>
-                      <ListItem><a href={row["news2"]}>{row["news2"]}</a></ListItem>
-                    </List>) :
-                    (<List><ListItem><a href={row["news2"]}>{row["news2"]}</a></ListItem></List>)} */}
 
                     {row['news1'] == '-' ? (<List><ListItem>No latest News</ListItem></List>) : 
                       (<List >
@@ -206,26 +199,6 @@ function Row(props) {
                     }
                 </TableCell>
               </TableRow>
-              {/* <TableCell align="left">
-                Website: <a href={row["website"]}>{row["website"]}</a>
-              </TableCell>
-              <TableCell align="left">
-                Current Price: {row["current_price"]}
-              </TableCell>
-                {row['news1']=='-' && row['news2']=='-' ? (<p>No latest News</p>) : (row['news1']!='-' && row['news2']!='-')? 
-                  (<TableCell >
-                    <p><b>Latest News</b></p>
-                    <a href={row["news1"]}>{row["news1"]}</a><br/>
-                    <a href={row["news2"]}>{row["news2"]}</a>
-                  </TableCell>) : 
-                  (<TableCell ><a href={row["news1"]}>{row["news1"]}</a></TableCell>)}           */}
-
-              {/* <TableCell align="right">
-                Links for news            
-              </TableCell>
-              <TableCell align="right">
-                Links for news            
-              </TableCell> */}
             </Table>
           </Collapse>
         </TableCell>
@@ -299,7 +272,7 @@ export default function EnhancedTable({ data }) {
           </Table>
         </TableContainer>
         <TablePagination
-          rowsPerPageOptions={[5, 25, 30, 50]}
+          rowsPerPageOptions={[25, 30, 50]}
           component="div"
           count={data.length}
           rowsPerPage={rowsPerPage}

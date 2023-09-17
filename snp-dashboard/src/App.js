@@ -24,6 +24,7 @@ function App() {
 
   return (
     <div className="App">
+      <h1>Sustainability Scores for S&P500 Index</h1>
       <Container maxWidth="xl" style={{ margin: "5%"}}>
         <SustainabilityTable data={data} />
       </Container>
