@@ -51,9 +51,17 @@ The dataset has the following columns:
   nmp run
   ```
   Access the webpage on your localhost.
+  
+## Screenshots
+* ![SnP500_List](/images/SnP500_List.jpg "SnP500_List")
+* ![Score_Generator](/images/Score_Generator.jpg "Score_Generator")
+* ![React1](/images/React1.jpg "React1")
+* ![React2](/images/React2.jpg "React2")
+
 
 ## Built with
 * ![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
+* ![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
 * ![Selenium](https://img.shields.io/badge/-selenium-%43B02A?style=for-the-badge&logo=selenium&logoColor=white)
-* Parsel
+* [Parsel](https://github.com/scrapy/parsel)
   
