@@ -26,9 +26,10 @@ The dataset has the following columns:
 
 ## Methodology
 
-* We first get the list of s&p500 companies by scrapping the Wikipedia page. This is achieved by running the snp500_list.py. 
-* We then scrape Google finance and Yahoo finance to get all the other parameters above. All this data is then saved as csv file for easy handling.
-* We can calculate the overall sustainability score by aggregating the sum of normalized ESG, Controversies and CDP scores.
+* First  the list of s&p500 companies is prepared by scrapping the Wikipedia page. It is handled by script snp500_list.py. 
+* Then, all the parameters are gathered by scraping Google Finance and Yahoo Finance websites. All this data is then saved as CSV file for easy handling.
+*The overall sustainability score is then calculated by aggregating the sum of normalized ESG, Controversies and CDP scores.
+
 
 ###### This is a Heading h6
 
