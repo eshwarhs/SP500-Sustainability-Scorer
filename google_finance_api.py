@@ -39,7 +39,7 @@ class CDPScoreScraper:
 
                 if ticker_data["current_price"] == None :
                     i += 1
-                    print(i)
+                    # print(i)
                     continue
 
                 ticker_data["quote"] = selector.css(".PdOqHc::text").get().replace(" • ",":")

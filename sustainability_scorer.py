@@ -101,14 +101,14 @@ class Company:
                 t.append(self.market_cap)
             else:
                 t.append('NaN')
-            if self.revenue:
-                t.append(self.revenue)
-            else:
-                t.append('NaN')
             if self.website:
                 t.append(self.website)
             else:
                 t.append('-')
+            if self.revenue:
+                t.append(self.revenue)
+            else:
+                t.append('NaN')
             if self.net_income:
                 t.append(self.net_income)
             else:
