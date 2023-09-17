@@ -31,12 +31,25 @@ The dataset has the following columns:
   python snp500_list.py
 
   ```
-* Then, all the parameters are gathered by scraping Google Finance and Yahoo Finance websites. All this data is then saved as CSV file for easy handling.The overall sustainability score is then calculated by aggregating the sum of normalized ESG, Controversies and CDP scores. It is handled by script sustainability_scorer.py.
+* Then, all the required parameters are scrapped from Google Finance and Yahoo Finance websites. All this data is then saved as CSV file for easy handling.The overall sustainability score is then calculated by aggregating the sum of normalized ESG, Controversies and CDP scores. All this is handled by script sustainability_scorer.py.
   ```
   python sustainability_scorer.py
   ```
+* The gathered information is then displayed on an interactive webpage.
 
-###### This is a Heading h6
+## Usage
+* install the required libraries
+  ```
+  pip install -r requirements.txt
+  ```
+* generate the s&p500 companies list by running the snp500_list.py script
+  ```
+  python snp500_list.py
+  ```
+* next, gather the dataset and calculate sustainability scores by running the sustainability_scorer.py script
+  ```
+  python sustainability_scorer.py
+  ```
 
 ## Emphasis
 
