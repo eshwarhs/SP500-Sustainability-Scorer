@@ -122,7 +122,6 @@ class Company:
     def calculate_score(self):
         esg = int(self.esg_score) if self.esg_score else 0
         ctl = int(self.controversy_level) if self.controversy_level else 0
-        # print(self.climate_score)
         cdp = self.climate_score[0] if len(self.climate_score) > 0 else '-'
         cdp = encoding_mapping[cdp]
 
@@ -181,9 +180,13 @@ try:
                 company.revenue = aboutCompany.get("revenue")
                 company.website = aboutCompany.get("website")
                 company.net_income = aboutCompany.get("net_income")
-                if(aboutCompany.get("news").get("items") >= 2):
+                sizeOfNews = len(aboutCompany.get("news").get("items"))
+                # print(len(aboutCompany.get("news").get("items")))
+                if(sizeOfNews >= 2):
                     company.news1 = aboutCompany.get("news").get("items")[0].get("link")
                     company.news2 = aboutCompany.get("news").get("items")[1].get("link")
+                elif(sizeOfNews == 1):
+                    company.news1 = aboutCompany.get("news").get("items")[0].get("link")
                 company.calculate_score()
                 company.write_company_to_csv()
 
