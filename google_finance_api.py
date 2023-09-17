@@ -23,7 +23,6 @@ class CDPScoreScraper:
             "year_range": {},
             "market_cap": {},
             "website": {},
-            "finance_perfomance": {"table": []}, 
             "revenue": {},
             "net_income": {},
             "cdp": {},
