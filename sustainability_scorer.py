@@ -71,7 +71,8 @@ try:
             if len(row) >= 2:
                 company = Company(row[0], row[1])
                 esg_score = esg_scraper.get_esg_score(company.ticker)
-                cdp_score = cdp_scraper.get_cdp_score(company.ticker)
+                aboutCompany = cdp_scraper.get_cdp_score(company.ticker)
+                company.cdp
                 company.esg_score = esg_score[0]
                 company.env_score = esg_score[1]
                 company.social_score = esg_score[2]
