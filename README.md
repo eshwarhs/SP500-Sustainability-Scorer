@@ -29,7 +29,7 @@ The dataset has the following columns:
 * The parameters ESG risk score, Environment risk score, Social risk score, Governance risk score and Controversy levels are scrapped from Yahoo Finance. Other parameters are scrapped from the Google Finance website. All this data is then saved as a CSV file for easy handling. The overall sustainability score is then calculated by aggregating the sum of normalized ESG, Controversies and CDP scores. All this is handled by script sustainability_scorer.py.
 * The gathered information is then displayed on an interactive webpage.
 
-  ![System Aechitecture](/image/System-Architecture.jpg "System Architecture")
+  ![System Aechitecture](/images/System_architecture.jpg "System Architecture")
 
 ## Usage
 * Install the required libraries
