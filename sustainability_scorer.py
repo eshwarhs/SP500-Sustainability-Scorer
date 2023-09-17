@@ -33,6 +33,17 @@ class Company:
         self.controversy_level = None
         self.climate_score = None
         self.sustainability_score = None
+        self.title = None
+        self.quote = None
+        self.current_price = None
+        self.day_range = None
+        self.year_range = None
+        self.market_cap = None
+        self.revenue = None
+        self.website = None
+        self.net_income = None
+        self.news1 = None
+        self.news2 = None
 
     def write_company_to_csv(self):
         with open('scores.csv', 'a', newline='') as csvfile:
@@ -62,12 +73,57 @@ class Company:
                 t.append(self.climate_score)
             else:
                 t.append('NaN')
-            spamwriter.writerow([self.ticker, self.name]+t + [self.sustainability_score])
-    
+            if self.title:
+                t.append(self.title)
+            else:
+                t.append('NaN')
+            if self.quote:
+                t.append(self.quote)
+            else:
+                t.append('NaN')
+            if self.current_price:
+                t.append(self.current_price)
+            else:
+                t.append('NaN')
+            if self.day_range:
+                t.append(self.day_range)
+            else:
+                t.append('NaN')
+            if self.year_range:
+                t.append(self.year_range)
+            else:
+                t.append('NaN')
+            if self.market_cap:
+                t.append(self.market_cap)
+            else:
+                t.append('NaN')
+            if self.revenue:
+                t.append(self.revenue)
+            else:
+                t.append('NaN')
+            if self.website:
+                t.append(self.website)
+            else:
+                t.append('NaN')
+            if self.net_income:
+                t.append(self.net_income)
+            else:
+                t.append('NaN')
+            if self.news1:
+                t.append(self.news1)
+            else:
+                t.append('NaN')
+            if self.news2:
+                t.append(self.news2)
+            else:
+                t.append('NaN')
+            spamwriter.writerow([self.ticker, self.name]+t)
+
     def calculate_score(self):
         esg = int(self.esg_score) if self.esg_score else 0
-        ctl = int(self.controversy_level) if self.controversy_level else 0 
-        cdp = self.climate_score if self.climate_score else '-'
+        ctl = int(self.controversy_level) if self.controversy_level else 0
+        # print(self.climate_score)
+        cdp = self.climate_score[0] if len(self.climate_score) > 0 else '-'
         cdp = encoding_mapping[cdp]
 
         n_esg = (esg - 0)/(100 - 0)
@@ -84,7 +140,9 @@ if os.path.exists(file_path):
 
 with open(file_path, mode='w', newline='') as file:
     writer = csv.writer(file)
-    writer.writerow(["Ticker","Company","ESG Risk score","Environment Risk Score","Social Risk Score","Governance Risk Score","Controversy Level","CDP Score", "Sustainability Score"])
+    writer.writerow(["Ticker","Company","ESG Risk score","Environment Risk Score","Social Risk Score","Governance Risk Score","Controversy Level","CDP Score", "Sustainability Score", "title",
+            "quote", "current_price", "day_range", "year_range", "market_cap", "website", "revenue", "net_income",
+            "news1", "news2"])
 
 print("----------------------- Generating Sustainability Score for S&P 500  -----------------------")
 
@@ -105,13 +163,27 @@ try:
             if len(row) >= 2:
                 company = Company(row[0], row[1])
                 esg_score = esg_scraper.get_esg_score(company.ticker)
-                cdp_score = cdp_scraper.get_cdp_score(company.ticker)
+                aboutCompany = cdp_scraper.get_cdp_score(company.ticker)
+                # print(aboutCompany)
+                company.climate_score = aboutCompany.get("cdp")
                 company.esg_score = esg_score[0]
                 company.env_score = esg_score[1]
                 company.social_score = esg_score[2]
                 company.governance_score = esg_score[3]
-                company.climate_score = cdp_score
                 company.controversy_level = esg_score[4]
+                company.title = aboutCompany.get("title")
+                # print(company.title)
+                company.quote = aboutCompany.get("quote")
+                company.current_price = aboutCompany.get("current_price")
+                company.day_range = aboutCompany.get("day_range")
+                company.year_range = aboutCompany.get("year_range")
+                company.market_cap = aboutCompany.get("market_cap")
+                company.revenue = aboutCompany.get("revenue")
+                company.website = aboutCompany.get("website")
+                company.net_income = aboutCompany.get("net_income")
+                if(aboutCompany.get("news").get("items") >= 2):
+                    company.news1 = aboutCompany.get("news").get("items")[0].get("link")
+                    company.news2 = aboutCompany.get("news").get("items")[1].get("link")
                 company.calculate_score()
                 company.write_company_to_csv()
 
