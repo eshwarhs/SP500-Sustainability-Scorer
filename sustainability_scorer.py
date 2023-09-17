@@ -72,15 +72,19 @@ class Company:
             if self.climate_score:
                 t.append(self.climate_score)
             else:
+                t.append('-')
+            if self.sustainability_score:
+                t.append(self.sustainability_score)
+            else:
                 t.append('NaN')
             if self.title:
                 t.append(self.title)
             else:
-                t.append('NaN')
+                t.append('-')
             if self.quote:
                 t.append(self.quote)
             else:
-                t.append('NaN')
+                t.append('-')
             if self.current_price:
                 t.append(self.current_price)
             else:
@@ -88,11 +92,11 @@ class Company:
             if self.day_range:
                 t.append(self.day_range)
             else:
-                t.append('NaN')
+                t.append('-')
             if self.year_range:
                 t.append(self.year_range)
             else:
-                t.append('NaN')
+                t.append('-')
             if self.market_cap:
                 t.append(self.market_cap)
             else:
@@ -104,7 +108,7 @@ class Company:
             if self.website:
                 t.append(self.website)
             else:
-                t.append('NaN')
+                t.append('-')
             if self.net_income:
                 t.append(self.net_income)
             else:
@@ -112,17 +116,17 @@ class Company:
             if self.news1:
                 t.append(self.news1)
             else:
-                t.append('NaN')
+                t.append('-')
             if self.news2:
                 t.append(self.news2)
             else:
-                t.append('NaN')
+                t.append('-')
             spamwriter.writerow([self.ticker, self.name]+t)
 
     def calculate_score(self):
         esg = int(self.esg_score) if self.esg_score else 0
         ctl = int(self.controversy_level) if self.controversy_level else 0
-        cdp = self.climate_score[0] if self.climate_score and self.climate_score[0] else '-'
+        cdp = self.climate_score[0] if self.climate_score and len(self.climate_score) > 0 else '-'
         cdp = encoding_mapping[cdp]
 
         n_esg = (esg - 0)/(100 - 0)
