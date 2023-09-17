@@ -162,31 +162,31 @@ try:
             if len(row) >= 2:
                 company = Company(row[0], row[1])
                 esg_score = esg_scraper.get_esg_score(company.ticker)
-                aboutCompany = cdp_scraper.get_cdp_score(company.ticker)
-                # print(aboutCompany)
-                company.climate_score = aboutCompany.get("cdp")
                 company.esg_score = esg_score[0]
                 company.env_score = esg_score[1]
                 company.social_score = esg_score[2]
                 company.governance_score = esg_score[3]
                 company.controversy_level = esg_score[4]
-                company.title = aboutCompany.get("title")
-                # print(company.title)
-                company.quote = aboutCompany.get("quote")
-                company.current_price = aboutCompany.get("current_price")
-                company.day_range = aboutCompany.get("day_range")
-                company.year_range = aboutCompany.get("year_range")
-                company.market_cap = aboutCompany.get("market_cap")
-                company.revenue = aboutCompany.get("revenue")
-                company.website = aboutCompany.get("website")
-                company.net_income = aboutCompany.get("net_income")
-                sizeOfNews = len(aboutCompany.get("news").get("items"))
-                # print(len(aboutCompany.get("news").get("items")))
-                if(sizeOfNews >= 2):
-                    company.news1 = aboutCompany.get("news").get("items")[0].get("link")
-                    company.news2 = aboutCompany.get("news").get("items")[1].get("link")
-                elif(sizeOfNews == 1):
-                    company.news1 = aboutCompany.get("news").get("items")[0].get("link")
+                aboutCompany = cdp_scraper.get_cdp_score(company.ticker)
+                if aboutCompany != None:
+                    company.climate_score = aboutCompany.get("cdp")
+                    company.title = aboutCompany.get("title")
+                    # print(company.title)
+                    company.quote = aboutCompany.get("quote")
+                    company.current_price = aboutCompany.get("current_price")
+                    company.day_range = aboutCompany.get("day_range")
+                    company.year_range = aboutCompany.get("year_range")
+                    company.market_cap = aboutCompany.get("market_cap")
+                    company.revenue = aboutCompany.get("revenue")
+                    company.website = aboutCompany.get("website")
+                    company.net_income = aboutCompany.get("net_income")
+                    sizeOfNews = len(aboutCompany.get("news").get("items"))
+                    # print(len(aboutCompany.get("news").get("items")))
+                    if(sizeOfNews >= 2):
+                        company.news1 = aboutCompany.get("news").get("items")[0].get("link")
+                        company.news2 = aboutCompany.get("news").get("items")[1].get("link")
+                    elif(sizeOfNews == 1):
+                        company.news1 = aboutCompany.get("news").get("items")[0].get("link")
                 company.calculate_score()
                 company.write_company_to_csv()
 
