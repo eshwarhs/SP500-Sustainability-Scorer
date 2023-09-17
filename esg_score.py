@@ -46,7 +46,6 @@ class ESGScoreScraper:
             res[4] = controversy_level.text
             return res
         except Exception as e:
-            print(f"Error when fetching ESG data for {ticker}")
             return res
 
     def close(self):

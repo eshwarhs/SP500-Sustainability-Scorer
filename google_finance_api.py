@@ -9,7 +9,8 @@ class CDPScoreScraper:
         self.headers = {
             "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36"}
 
-    def get_cdp_score(self, ticker: str):  # ticker should be a string
+    # ticker should be a string
+    def get_cdp_score(self, ticker: str):
         i = 1
         stockEx = {1 : 'NASDAQ',
                 2 : 'NYSE',
@@ -39,7 +40,6 @@ class CDPScoreScraper:
 
                 if ticker_data["current_price"] == None :
                     i += 1
-                    # print(i)
                     continue
 
                 ticker_data["quote"] = selector.css(".PdOqHc::text").get().replace(" • ",":")
@@ -84,6 +84,3 @@ class CDPScoreScraper:
         except Exception as e:
             print(f"Error when fetching CDP data for {ticker}")
             return ticker_data
-    
-# p = CDPScoreScraper()
-# print(len(p.get_cdp_score("AOS").get("cdp")) > 0)

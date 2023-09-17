@@ -52,31 +52,28 @@ class Company:
             if self.esg_score:
                 t.append(self.esg_score)
             else:
-                t.append('NaN')
+                t.append(0)
             if self.env_score:
                 t.append(self.env_score)
             else:
-                t.append('NaN')
+                t.append(0)
             if self.social_score:
                 t.append(self.social_score)
             else:
-                t.append('NaN')
+                t.append(0)
             if self.governance_score:
                 t.append(self.governance_score)
             else:
-                t.append('NaN')
+                t.append(0)
             if self.controversy_level:
                 t.append(self.controversy_level)
             else:
-                t.append('NaN')
+                t.append(0)
             if self.climate_score:
                 t.append(self.climate_score)
             else:
                 t.append('-')
-            if self.sustainability_score:
-                t.append(self.sustainability_score)
-            else:
-                t.append('NaN')
+            t.append(self.sustainability_score)
             if self.title:
                 t.append(self.title)
             else:
@@ -101,14 +98,14 @@ class Company:
                 t.append(self.market_cap)
             else:
                 t.append('NaN')
-            if self.website:
-                t.append(self.website)
-            else:
-                t.append('-')
             if self.revenue:
                 t.append(self.revenue)
             else:
                 t.append('NaN')
+            if self.website:
+                t.append(self.website)
+            else:
+                t.append('-')
             if self.net_income:
                 t.append(self.net_income)
             else:
@@ -126,7 +123,7 @@ class Company:
     def calculate_score(self):
         esg = int(self.esg_score) if self.esg_score else 0
         ctl = int(self.controversy_level) if self.controversy_level else 0
-        cdp = self.climate_score[0] if self.climate_score and len(self.climate_score) > 0 else '-'
+        cdp = self.climate_score if self.climate_score else '-'
         cdp = encoding_mapping[cdp]
 
         n_esg = (esg - 0)/(100 - 0)
@@ -144,7 +141,7 @@ if os.path.exists(file_path):
 with open(file_path, mode='w', newline='') as file:
     writer = csv.writer(file)
     writer.writerow(["Ticker","Company","ESG Risk score","Environment Risk Score","Social Risk Score","Governance Risk Score","Controversy Level","CDP Score", "Sustainability Score", "title",
-            "quote", "current_price", "day_range", "year_range", "market_cap", "website", "revenue", "net_income",
+            "quote", "current_price", "day_range", "year_range", "market_cap", "revenue", "website", "net_income",
             "news1", "news2"])
 
 print("----------------------- Generating Sustainability Score for S&P 500  -----------------------")
@@ -173,7 +170,8 @@ try:
                 company.controversy_level = esg_score[4]
                 aboutCompany = cdp_scraper.get_cdp_score(company.ticker)
                 if aboutCompany != None:
-                    company.climate_score = aboutCompany.get("cdp")
+                    if aboutCompany.get("cdp") and len(aboutCompany.get("cdp")) > 0:
+                        company.climate_score = aboutCompany.get("cdp")[0] 
                     company.title = aboutCompany.get("title")
                     # print(company.title)
                     company.quote = aboutCompany.get("quote")
