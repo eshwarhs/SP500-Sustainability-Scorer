@@ -32,9 +32,9 @@ The dataset has the following columns:
 
   ```
 * Then, all the parameters are gathered by scraping Google Finance and Yahoo Finance websites. All this data is then saved as CSV file for easy handling.The overall sustainability score is then calculated by aggregating the sum of normalized ESG, Controversies and CDP scores. It is handled by script sustainability_scorer.py.
-```
-python sustainability_scorer.py
-```
+  ```
+  python sustainability_scorer.py
+  ```
 
 ###### This is a Heading h6
 
