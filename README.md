@@ -14,8 +14,8 @@ Help us visualize our stock picks through the lens of sustainability - we'd like
 In this project we develop a sustainability indicator for the s&p500 companies. The sustainability of companies is assesesd by their impact on environment, society and future financial health of the company.To this end we gathered crucial sustainability parameters and use them to generate a weighted sustainability score for each company. This data is then displayed using a custom built web interface.
 
 The dataset has the following columns:
-* Ticker: 
-* Name:
+* Ticker: unique series of letters assigned to a security for trading purposes. 
+* Name: resistered name of the securities being traded
 * ESG risk score:
 * Environment risk score:
 * Social risk score:
